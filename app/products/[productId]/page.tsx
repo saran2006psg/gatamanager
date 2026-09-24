@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
+import CameraCapture from '@/components/CameraCapture';
 import { hasSupabaseConfig, supabase } from '@/lib/supabase/client';
 import { FAILURE_CONDITION_OPTIONS, type FailureCondition, type Product, type TestImage } from '@/types/dataset';
 import ProgressBar from '@/components/ProgressBar';
@@ -271,20 +272,9 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              <label className="mt-4 flex cursor-pointer items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100">
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/jpg"
-                  capture="environment"
-                  className="hidden"
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    if (file) handleCapture(option.value, file);
-                    event.target.value = '';
-                  }}
-                />
-                Open Camera
-              </label>
+              <div className="mt-4">
+                <CameraCapture onCapture={(file) => handleCapture(option.value, file)} label="Open Webcam" />
+              </div>
 
               {pendingCaptures[option.value] ? (
                 <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">

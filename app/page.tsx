@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
+import CameraCapture from '@/components/CameraCapture';
 import { hasSupabaseConfig, supabase } from '@/lib/supabase/client';
 import { ORNAMENT_TYPES, type OrnamentType } from '@/types/dataset';
 
@@ -158,13 +159,8 @@ export default function HomePage() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-slate-700">Upload Original Clean Catalogue Image</label>
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/jpg"
-            onChange={(event) => handleFileChange(event.target.files?.[0] ?? null)}
-            className="block w-full rounded-lg border border-slate-200 p-2 text-sm text-slate-700"
-          />
+          <label className="mb-2 block text-sm font-medium text-slate-700">Capture Original Clean Catalogue Image</label>
+          <CameraCapture onCapture={handleFileChange} label="Open Webcam" />
           {previewUrl ? (
             <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-2">
               <img src={previewUrl} alt="Catalogue preview" className="h-64 w-full rounded-lg object-cover" />
